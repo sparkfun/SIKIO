@@ -1,4 +1,1 @@
-SIKIO
-=====
-
-This is the place to go for the SparkFun Inventors Kit based on the IOIO-OTG board. 
+Here is where you will find all of the source code and apk files for each example.
