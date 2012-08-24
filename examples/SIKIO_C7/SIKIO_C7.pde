@@ -15,11 +15,11 @@
  *
  *  6. To get the last one, from TwitPic, go to dev.twitpic.com, click on 'register', and fill out the form to get your API Key.  Save this with the rest of your special stuff.
  
- Consumer key  5c7u1e829C2d2cIiFaLiHQ
- Consumer secret  vbU7tgfZStiANl3JmkUsPLopa4RnCKR7ey9FlMZVVE
- Access token  64042332-o43rVU2ONKxaCECUR0RpNkgkRYWD73hOww3vbFGE
- Access token secret  3Xeg3NBt7XwirfKd09DJZeezqhrTlT3X6r4MpQukcU
- Twitpic API key 18478f54c9f0fa09d16b9d7dea1e7389
+ Consumer key  ************************
+ Consumer secret  ************************************
+ Access token  ************************************
+ Access token secret    ************************************
+ Twitpic API key   ************************************
  
  Download twitter4j-android-2.2.6 from http://twitter4j.org/en/index.html#introduction
  Import twitter4j-core.jar & twitter4j-media-support-android.jar (you can drag them straight onto your sketch)
@@ -66,11 +66,11 @@ Camera cam;
 //we need two configuration builders, one for twitter and one for twitpic
 ConfigurationBuilder cb = new ConfigurationBuilder();
 ConfigurationBuilder cb2 = new ConfigurationBuilder();
-String CONS_KEY = "5c7u1e829C2d2cIiFaLiHQ";
-String CONS_SECRET = "vbU7tgfZStiANl3JmkUsPLopa4RnCKR7ey9FlMZVVE";
-String ACCESS_TOKEN = "64042332-o43rVU2ONKxaCECUR0RpNkgkRYWD73hOww3vbFGE";
-String ACCESS_SECRET = "3Xeg3NBt7XwirfKd09DJZeezqhrTlT3X6r4MpQukcU";
-String TWITPIC_KEY = "18478f54c9f0fa09d16b9d7dea1e7389";
+String CONS_KEY = "************************************";
+String CONS_SECRET = "************************************";
+String ACCESS_TOKEN = "************************************";
+String ACCESS_SECRET = "************************************";
+String TWITPIC_KEY = "************************************";
 ImageUpload upload;
 
 //create a IOIO instance
