@@ -1,6 +1,17 @@
-/* This is our thread class, it's a subclass of the standard thread class that comes with Processing
- * we're not really doing anything dramatic, just using the start and run methods to control our interactions with the IOIO board
+/* 
+  SparkFun SIKIO - Quickstart
+  CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+   
+  PURPOSE:
+  This is our thread class, it's a subclass of the standard thread class that comes with Processing
+  we're not really doing anything dramatic, just using the start and run methods to control our interactions with the IOIO board.
+  Basically, this is where you write code to control the IOIO. You can define global variables in the main sketch and use them
+  here.
+  
  */
+
+//Used to display basic info
+PFont font;
 
 class IOIOThread extends Thread {
 
@@ -10,10 +21,8 @@ class IOIOThread extends Thread {
   DigitalOutput led;  //DigitalOutput type for the onboard led
   int count; //if we wanted our thread to timeout, we could put a counter on it, I don't use it in this sketch
 
-
   //our constructor
   IOIOThread(String s, int w) {
-
     id = s;
     wait = w;
     running = false;
@@ -23,7 +32,6 @@ class IOIOThread extends Thread {
   //override the start method
   void start() {
     running = true;
-
     //try connecting to the IOIO board, handle the case where we cannot or the connection is lost
     try {
       IOIOConnect();  //this function is down below and not part of the IOIO library
@@ -46,22 +54,28 @@ class IOIOThread extends Thread {
   void run() {
 
     //while our sketch is running, keep track of the lightOn boolean, and turn on or off the led accordingly
-    while (running) {  
-      //count++;
-
-      //again, we have to catch a bad connection exception
+    while (running) {
+      //count++; 
+      // Display the name of the example
+      font = createFont("Monospaced",20);
+      textFont(font);
+      text("QuickStart",5,25);
+       
       try {
+        //LED ON
         led.write(false);
         lightOn = true;
+        //Delay
         try {
           sleep(500);
         } 
         catch (Exception e) {
         }
         
+        //LED OFF
         led.write(true);
         lightOn = false;
-
+        //Delay
         try {
           sleep(500);
         } 
