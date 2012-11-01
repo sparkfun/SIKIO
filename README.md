@@ -9,9 +9,8 @@ For instructions/information/whatever goto the wiki.
 License
 =====
 
-Creative Commons Attribution-ShareAlike
-http://creativecommons.org/licenses/by-sa/3.0/
+[Creative Commons Attribution-ShareAlike](http://creativecommons.org/licenses/by-sa/3.0/)
 
 Authors: Aaron Weiss, Ben Leduc-Mills, Jordan McConnell @ SparkFun Electonics
 
-IOIO-OTG: Ytai Ben-Tsvi
+[IOIO-OTG: Ytai Ben-Tsvi](https://github.com/ytai/ioio/wiki)
