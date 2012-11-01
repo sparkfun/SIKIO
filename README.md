@@ -13,4 +13,5 @@ Creative Commons Attribution-ShareAlike
 http://creativecommons.org/licenses/by-sa/3.0/
 
 Authors: Aaron Weiss, Ben Leduc-Mills, Jordan McConnell @ SparkFun Electonics
+
 IOIO-OTG: Ytai Ben-Tsvi
