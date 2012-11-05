@@ -3,42 +3,55 @@
   CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
   PURPOSE:
-  This is our thread class, it's a subclass of the standard thread class that comes with Processing
-  we're not really doing anything dramatic, just using the start and run methods to control our interactions with the IOIO board.
-  Basically, this is where you write code to control the IOIO. You can define global variables in the main sketch and use them
-  here.
+  This is our thread class, it's a subclass of the standard thread class that comes with Processing.
+  We're not really doing anything dramatic, just using a thread (i.e. a separate process than the main .pde file)
+  to control the IOIO board. You can define global variables in the main sketch and use them here.
+  
+  More info on how the Processing Thread class works, see here:
+  http://wiki.processing.org/w/Threading
   
  */
 
-//Used to display basic info
+//Processing Library PFont. Used to display basic info and print the experiment title
 PFont font;
 
+//This is a class for the IOIO thread. It is similar to the MainActivity class in Android programming, except 
+//our "MainActivity" extends to a thread that runs separate than the main .pde file. In other words, the IOIOThread 
+//class inherits all of the attributes of the Java thread class. All this is doing is allowing us to use the 
+//'thread' class without having to write too much extra configuration code for the thread. 
 class IOIOThread extends Thread {
 
+  //Variables for our Thread constuctor. These define the threads properties 
   boolean running;  //is our thread running?
   String id; //in case we want to name our thread
   int wait; //how often our thread should run
+  int count; //if we wanted our thread to timeout, we could put a counter on it, we don't use it here
   DigitalOutput led;  //DigitalOutput type for the onboard led
-  int count; //if we wanted our thread to timeout, we could put a counter on it, I don't use it in this sketch
 
-  //our constructor
+  //Our Thread constructor, here we create and start the thread.
   IOIOThread(String s, int w) {
-    id = s;
-    wait = w;
-    running = false;
-    count = 0;
+    id = s; //not using this
+    wait = w; //not using this
+    running = false; //not running yet
+    count = 0; //not using this
   }
 
-  //override the start method
+  //start() is a method of the Java thread class, we will override this method and use it as a setup funcion
+  //where we can define variables. This will start before the main thread loop below.
   void start() {
-    running = true;
+    running = true; //we are now running the thread
     //try connecting to the IOIO board, handle the case where we cannot or the connection is lost
     try {
       IOIOConnect();  //this function is down below and not part of the IOIO library
     } 
     catch (ConnectionLostException e) {
     }
-
+    
+    /*
+      Your setup code that controls the IOIO goes here. For examples on how to use the IOIO libaries, see the
+      IOIO wiki: https://github.com/ytai/ioio/wiki
+    */
+    
     //try setting our led pin to the onboard led, which has a constant 'LED_PIN' associated with it
     try {
       led = ioio.openDigitalOutput(IOIO.LED_PIN);
@@ -46,17 +59,22 @@ class IOIOThread extends Thread {
     catch (ConnectionLostException e) {
     }
 
-    //don't forget this
+    //Now we can envloke our start method. 
     super.start();
   }
 
-  //start automatically calls run for you
+  //Another method from the Java thread class. We can put a while(1) loop in here so that we can have the thread
+  //run unti the program is closed. 
   void run() {
-
-    //while our sketch is running, keep track of the lightOn boolean, and turn on or off the led accordingly
-    while (running) {
-      //count++; 
-      // Display the name of the example
+    //While our sketch is running, turn on or off the led accordingly and keep track of the lightOn boolean.
+    while (running) { 
+      
+      /*
+        Your main loop code that controls the IOIO goes here. For examples on how to use the IOIO libaries, see the
+        IOIO wiki: https://github.com/ytai/ioio/wiki
+      */
+      
+      //Display the name of the example on the background, from PFont
       font = createFont("Monospaced",20);
       textFont(font);
       text("QuickStart",5,25);
@@ -87,7 +105,7 @@ class IOIOThread extends Thread {
     }
   }
 
-  //often we may want to quit or stop or thread, so I include this here but I'm not using it in this sketch 
+  //Often we may want to quit or stop or thread.
   void quit() {
     running = false;
     ioio.disconnect();
@@ -95,7 +113,7 @@ class IOIOThread extends Thread {
   }
 
 
-  //a simple little method to try connecting to the IOIO board
+  //A simple little method to try connecting to the IOIO board
   void IOIOConnect() throws ConnectionLostException {
 
     try {
