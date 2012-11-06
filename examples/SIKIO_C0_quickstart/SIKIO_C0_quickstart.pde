@@ -3,7 +3,7 @@
    CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
    PURPOSE:
-   This example shows how the main Processing file (in this case, SIKIO_quickstart.pde)
+   This example shows how the main Processing file (in this case, SIKIO_C0_quickstart.pde)
    and the IOIOThread.pde file interact through the use of a global variable. The main .pde 
    file controls the user interface and the IOIOThread.pde controls the IOIO board. 
    
@@ -25,7 +25,6 @@ import ioio.lib.util.*;
 import ioio.lib.impl.*;
 import ioio.lib.api.*;
 import ioio.lib.api.exception.*;
-
 //Create a IOIO instance. This is the entry point to the IOIO API. It creates the
 //bootstrapping between a specific implementation of the IOIO interface and any
 //dependencies it might have, such as the underlying connection logic.
@@ -48,7 +47,8 @@ float displayW, displayH;
 //Main setup function; this is run once and is generally used to initialize things. 
 void setup() {
   
-  //instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds
+  //Instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds.
+  //The wait time 
   thread1 = new IOIOThread("thread1", 100);
   //start our thread
   thread1.start();
@@ -62,9 +62,9 @@ void setup() {
   displayH = displayHeight; 
   
   //Drawing options.
-  smooth(); //anti-aliased edges
+  smooth(); //anti-aliased edges, creates smoother edges
   noStroke(); //disables the outline
-  rectMode(CENTER); //sets all rectangles to draw from the center point
+  rectMode(CENTER); //place rectangles by their center coordinates
   
   //Paint background color.
   background(255,0,0);//red
@@ -72,6 +72,7 @@ void setup() {
 
 //Main draw loop is repeated 60 times a second. 
 void draw() {
+
   //If LED is ON, draw a black rectangle.
   if (lightOn == true) {
     fill(0); //draw black

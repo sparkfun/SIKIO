@@ -1,13 +1,23 @@
-/* SIKIO Circuit 1 - Digital Out & Intro to APWidgets
- * by Ben Leduc-Mills
- * Uses the APWidgets library to make several buttons that control an RGB Led
- * Pin 4 = Red, Pin 5 = Green, Pin 6 = Blue
+/* 
+   SparkFun SIKIO - Circuit 1
+   CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+   
+   PURPOSE:
+   This example shows how to control a tri-color LED with 3 buttons.  
+   
+   HARDWARE:
+   -Tri-color LED
+   -3 330Ohm resistors
+   
+   OPERATION:
+   The sketch starts by running IOIOThread.pde. In the thread, a flag is set through the 
+   global variable 'lightON', when the LED turns on and off. This global variable is read in 
+   the code below and a black or white box is drawn depending on the state of the LED.
  */
 
-// Import APWidgets library - download from: http://code.google.com/p/apwidgets/downloads/list
-import apwidgets.*;
-
-//Import IOIO library - this is from the link in the install section of your SIKIO guide
+//Import the IOIO libraries. If you want to interact with the IOIO board, you must 
+//include all of these files. These come from the IOIO folder in your Processing ->
+//libraries directory.
 import ioio.lib.util.android.*;
 import ioio.lib.spi.*;
 import ioio.lib.util.*;
@@ -15,56 +25,75 @@ import ioio.lib.impl.*;
 import ioio.lib.api.*;
 import ioio.lib.api.exception.*;
 
-//make a widget container and 3 buttons, one for each color
+//Create a IOIO instance. This is the entry point to the IOIO API. It creates the
+//bootstrapping between a specific implementation of the IOIO interface and any
+//dependencies it might have, such as the underlying connection logic.
+IOIO ioio = IOIOFactory.create();
+
+//Create an instance of our IOIOThread class. The thread code is found in IOIOThread.pde. The 
+//thread runs independently of the main sketch below.
+IOIOThread thread1; 
+
+//Import apwidgets. This is responsible for easily creating buttons. Examples found here:
+//  http://code.google.com/p/apwidgets/w/list
+import apwidgets.*;
+
+//Make a widget container and 3 buttons, one for each color.
 APWidgetContainer widgetContainer; 
 APButton redButton;
 APButton greenButton;
 APButton blueButton;
 
-
-//our rectangle size
-int rectSize = 100;
-
-//boolean to turn the light on or off
+//This ia a boolean variable that reads if the LED is on or off. The variable can be
+//used in this file or the IOIOThread.pde file. 
 boolean lightOn = false;
+
+//These global variables contain your display width and height and will be used to 
+//scale objects that are drawn. We draw things based off of the dispaly size, because 
+//the code will be able to work with different display resolutions. These variables
+//need to be floats, since we will be calculating things with them.
+float displayW, displayH;
 
 boolean redOn, greenOn, blueOn = false;
 
-//create a IOIO instance
-IOIO ioio = IOIOFactory.create();
-
-//create a thread for our IOIO code
-IOIOThread thread1; 
-
 void setup() {
-
+  
   //instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds
-  thread1 = new IOIOThread("thread1", 100);
+  thread1 = new IOIOThread("thread1", 10);
   //start our thread
   thread1.start();
+  
+  //Lock screen in portrait mode.
+  orientation(PORTRAIT);
+  
+  //Set the size of the display to be your screen size. These variables are defined from the
+  //size() function in Processing
+  displayW = displayWidth; //error
+  displayH = displayHeight; 
+  
+  //Drawing options.
+  smooth(); //anti-aliased edges, creates smoother edges
+  noStroke(); //disables the outline
+  rectMode(CENTER); //place rectangles by their center coordinates
 
-  size(480, 800); 
-  smooth();
-  noStroke();
-  fill(255);
-  rectMode(CENTER);     //This sets all rectangles to draw from the center point
-
-  //create new container for widgets
+  //Create a new container for widgets
   widgetContainer = new APWidgetContainer(this); 
 
-  //create new button from x- and y-pos. and label. size determined by text content
-  redButton = new APButton(10, 10, "Red"); 
-  greenButton = new APButton(70, 10, "Green");
-  blueButton = new APButton(150, 10, "Blue"); 
+  //Create a new button from x and y pos. and label. Size determined by text content.
+  redButton = new APButton(10, 40, "Red"); 
+  greenButton = new APButton(70, 40, "Green");
+  blueButton = new APButton(150, 40, "Blue"); 
 
-  //place buttons in container
+  //Place buttons in container
   widgetContainer.addWidget(redButton);
   widgetContainer.addWidget(greenButton);
   widgetContainer.addWidget(blueButton);
 }
 
+//Main draw loop is repeated 60 times a second. 
 void draw() {
-  background(#FF9900);
+  
+  background(0,255,0); //draw green background
 }
 
 
