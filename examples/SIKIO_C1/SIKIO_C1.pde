@@ -1,5 +1,7 @@
 /* 
    SparkFun SIKIO - Circuit 1
+   Hardware Concept: Digital Out
+   Android Concetp: Buttons
    CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
    PURPOSE:
@@ -54,12 +56,13 @@ boolean lightOn = false;
 //need to be floats, since we will be calculating things with them.
 float displayW, displayH;
 
+//Create boolean variables that will be read by our thread when buttons are pressed.
 boolean redOn, greenOn, blueOn = false;
 
 void setup() {
   
   //instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds
-  thread1 = new IOIOThread("thread1", 10);
+  thread1 = new IOIOThread("thread1", 100);
   //start our thread
   thread1.start();
   
@@ -100,11 +103,11 @@ void draw() {
 //onClickWidget is called when a widget is clicked/touched
 void onClickWidget(APWidget widget) {
 
-  //each button toggles the boolean associated with that button's led color
-  //in the ioio thread, we switch the LED on or off based on the status of that boolean
+  //Each button toggles the boolean associated with that button's led color
+  //In the ioio thread, we switch the LED on or off based on the status of that boolean
   
   if (widget == redButton) { 
-      redOn = !redOn;
+     redOn = !redOn;
   }
   
   if(widget == greenButton) {

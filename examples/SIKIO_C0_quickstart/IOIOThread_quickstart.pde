@@ -10,7 +10,7 @@
   More info on how the Processing Thread class works, see here:
   http://wiki.processing.org/w/Threading
   
- */
+*/
 
 //This is a class for the IOIO thread. It is similar to the MainActivity class in Android programming, except 
 //our "MainActivity" extends to a thread that runs separate than the main .pde file. In other words, the IOIOThread 
@@ -18,7 +18,7 @@
 //'thread' class without having to write too much extra configuration code for the thread. 
 class IOIOThread extends Thread {
 
-  //Variables for our Thread constuctor. These define the threads properties 
+  //Variables for our Thread constuctor. These define the threads properties. 
   boolean running;  //is our thread running?
   String id; //in case we want to name our thread
   int wait; //how often our thread should run

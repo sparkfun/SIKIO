@@ -1,5 +1,7 @@
 /* 
-   SparkFun SIKIO - Quickstart 
+   SparkFun SIKIO - Quickstart
+   Hardware Concept: Digital Out
+   Android Concept: Draw Box 
    CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
    PURPOSE:
@@ -48,16 +50,16 @@ float displayW, displayH;
 void setup() {
   
   //Instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds.
-  //The wait time 
+  //The wait time is the time in between interations of the thread.  
   thread1 = new IOIOThread("thread1", 100);
-  //start our thread
+  //Start our thread
   thread1.start();
   
   //Lock screen in portrait mode.
   orientation(PORTRAIT);
   
-  //Set the size of the display to be your screen size. These variables are defined from the
-  //size() function in Processing
+  //Set the size of the display to be your screen size. displayWidth and displayHeight
+  //constants are defined based on your screen size.
   displayW = displayWidth;
   displayH = displayHeight; 
   
