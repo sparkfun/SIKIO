@@ -36,8 +36,8 @@ class IOIOThread extends Thread {
   }
 
   void start() {
+    
     running = true;
-
     try {
       //connect to the IOIO
       IOIOConnect();
