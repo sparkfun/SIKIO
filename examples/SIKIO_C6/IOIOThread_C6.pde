@@ -1,3 +1,17 @@
+/* 
+  SparkFun SIKIO - Circuit 6
+  CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+   
+  PURPOSE:
+  This is our thread class, it's a subclass of the standard thread class that comes with Processing.
+  We're not really doing anything dramatic, just using a thread (i.e. a separate process than the main .pde file)
+  to control the IOIO board. You can define global variables in the main sketch and use them here.
+  
+  More info on how the Processing Thread class works, see here:
+  http://wiki.processing.org/w/Threading
+  
+*/
+
 class IOIOThread extends Thread {
 
   boolean running; //is our thread running?
@@ -7,7 +21,7 @@ class IOIOThread extends Thread {
   AnalogInput photo; //our photocell is an AnalogInput
   int count;
   //int buttonPin = 4; //pin for our led
-  int photoPin = 40; // pin for our potentiometer
+  int photoPin = 39; // pin for our potentiometer
   float photoVal; //our analog values range from 0 to 1
   //boolean buttonVal; //digital in is either 0 OR 1 (true or false)
 
@@ -67,12 +81,9 @@ class IOIOThread extends Thread {
 
   void quit() {
     running = false;
-    //led.close();
     ioio.disconnect();
     interrupt();
   }
-
-
 
   void IOIOConnect() throws ConnectionLostException {
 

@@ -22,7 +22,6 @@ class IOIOThread extends Thread {
   boolean running;  //is our thread running?
   String id; //in case we want to name our thread
   int wait; //how often our thread should run
-  int count; //if we wanted our thread to timeout, we could put a counter on it, we don't use it here
   
   /*
       Your global variables or declarations for the IOIO go here. For examples on how to use the IOIO 
@@ -36,17 +35,15 @@ class IOIOThread extends Thread {
     id = s; //not using this
     wait = w; //not using this
     running = false; //not running yet
-    count = 0; //not using this
   }
-
+  
   //start() is a method of the Java thread class, we will override this method and use it as a setup funcion
   //where we can define variables. The thread starts when you call thread1.start() in the main .pde file.
   void start() {
     
     running = true; //we are now running the thread
-    //try connecting to the IOIO board, handle the case where we cannot or the connection is lost
+    //Try connecting to the IOIO board, handle the case where we cannot or the connection is lost.
     try {
-      //ioio.waitForConnect();
       IOIOConnect();  //this function is down below and not part of the IOIO library
     } 
     catch (ConnectionLostException e) {

@@ -1,11 +1,24 @@
-/* SIKIO Circuit 6
- * by Ben Leduc-Mills
- * Analog In, Graphing, & Data Logging
- * Reading from a photocell
- * Potentiometer on Pin 40, Button on Pin 4
- * Make sure you check the WRITE_EXTERNAL_STORAGE permission in addition to the normal INTERNET permssion under 'sketch permissions'
- * To access the data you logged, plug your phone back into the computer, turn on USB Storage, and you should see a text file call 'sensorValues.txt' in your main directory
- */
+/* 
+   SparkFun SIKIO - Circuit 6
+   Hardware Concept: Analog In
+   Android Concept: Datalogging and Graphing
+   CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+   
+   PURPOSE:
+   This example shows how the main Processing file (in this case, SIKIO_C0_quickstart.pde)
+   and the IOIOThread.pde file interact through the use of a global variable. The main .pde 
+   file controls the user interface and the IOIOThread.pde controls the IOIO board. 
+   
+   HARDWARE:
+   -photocell
+   -10k
+   
+   OPERATION:
+   Make sure you check the WRITE_EXTERNAL_STORAGE permission in addition to the normal 
+   INTERNET permssion under 'sketch permissions'. To access the data you logged, plug your 
+   phone back into the computer, turn on USB Storage, and you should see a text file called 
+   'sensorValues.txt' in your main directory.
+*/
 
 // Import APWidgets library - download from: http://code.google.com/p/apwidgets/downloads/list
 import apwidgets.*;
@@ -21,16 +34,13 @@ import ioio.lib.api.exception.*;
 //we need the android.os library to check if our external media is available and writable
 import android.os.*;
 
-
-
-
 //create a IOIO instance
 IOIO ioio = IOIOFactory.create();
 
 //create a thread for our IOIO code
 IOIOThread thread1; 
 
-//We're going to use text in this example, so we need a font
+//We're going to use text in this example, so we need a font.
 PFont font;
 
 //string to keep track of button value
@@ -45,6 +55,8 @@ String s1, s2, s3;
 APWidgetContainer widgetContainer; 
 APButton start;
 
+float displayW, displayH;
+
 void setup() {
 
   //pick a font - PFont.list()[0] is good because it will list the available fonts on our system as an array and just pick the first one
@@ -55,18 +67,22 @@ void setup() {
   thread1 = new IOIOThread("thread1", 100);
   //start our thread
   thread1.start();
-
-  size(480, 800); 
-  smooth();
-  noStroke();
-  fill(255);
-  rectMode(CENTER);     //This sets all rectangles to draw from the center point
-
-  //Set background to black
-  background(#000000);
-
+  
   //set orientation
   orientation(PORTRAIT);
+  
+  //Set the size of the display to be your screen size. displayWidth and displayHeight
+  //constants are defined based on your screen size.
+  displayW = displayWidth;
+  displayH = displayHeight; 
+  
+  //Drawing options.
+  smooth(); //anti-aliased edges, creates smoother edges
+  noStroke(); //disables the outline
+  rectMode(CENTER); //place rectangles by their center coordinates, (the default is the TL corner)
+
+  //Set background to black
+  background(0);
   
   //Method that checks whether local storage is accessible and writable
   checkStorage();
@@ -79,9 +95,9 @@ void setup() {
 
 void draw() {
 
-  background(#000000);
+  background(0);
 
-  stroke(255);
+  stroke(255, 0, 0); //red
   //draw a line that corresponds to our current sensor reading
   line(xPos, height, xPos, height - (thread1.photoVal * 1000));
 
@@ -98,7 +114,6 @@ void draw() {
   text("Writable: " + s2, 10, 100);
   text("Status: " + s3, 10, 150);
 }
-
 
 void onClickWidget(APWidget widget) {
 
@@ -143,8 +158,6 @@ void onClickWidget(APWidget widget) {
     }
   }
 }
-
-
 
 public void checkStorage() {
 
