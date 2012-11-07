@@ -18,7 +18,7 @@
 //Import the APWidgets library.
 import apwidgets.*;
 
-//Import IOIO library - this is from the link in the install section of your SIKIO guide
+//Import IOIO library - this is from the link in the install section of your SIKIO guide.
 import ioio.lib.util.android.*;
 import ioio.lib.spi.*;
 import ioio.lib.util.*;
@@ -26,13 +26,13 @@ import ioio.lib.impl.*;
 import ioio.lib.api.*;
 import ioio.lib.api.exception.*;
 
-//create a IOIO instance
+//Create a IOIO instance.
 IOIO ioio = IOIOFactory.create();
 
-//create a thread for our IOIO code
+//Create a thread for our IOIO code.
 IOIOThread thread1; 
 
-//make a widget container and 8 buttons
+//Make a widget container and 8 buttons.
 APWidgetContainer widgetContainer; 
 APButton c;
 APButton d;
@@ -43,31 +43,24 @@ APButton a;
 APButton b;
 APButton c2;
 
-//Used to hold the screen size values.
-float displayW, displayH;
-
+//Main setup function; this is run once and is generally used to initialize things. 
 void setup() {
 
   //Instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds.
   //The wait time is the time in between interations of the thread.  
   thread1 = new IOIOThread("thread1", 100);
-  //Start our thread
+  //Start our thread.
   thread1.start();
 
-  //Lock screen in portrait mode.
+  //Lock the screen in portrait mode.
   orientation(PORTRAIT);
-
-  //Set the size of the display to be your screen size. displayWidth and displayHeight
-  //constants are defined based on your screen size.
-  displayW = displayWidth;
-  displayH = displayHeight;
   
-  //Drawing options.
-  smooth(); //anti-aliased edges, creates smoother edges
+  //Here are your drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates
 }
 
+//Main draw loop is repeated 60 times a second. 
 void draw() {
 
   //Set background to black
@@ -76,14 +69,14 @@ void draw() {
   //Draw the white keys.
   fill(255);
   stroke(155);
-  rect(50, 10, 50, displayH); //c
-  rect(100, 10, 50, displayH); //d
-  rect(150, 10, 50, displayH); //e
-  rect(200, 10, 50, displayH); //f
-  rect(250, 10, 50, displayH); //g
-  rect(300, 10, 50, displayH); //a
-  rect(350, 10, 50, displayH); //b
-  rect(400, 10, 50, displayH); //c
+  rect(50, 10, 50, height); //c
+  rect(100, 10, 50, height); //d
+  rect(150, 10, 50, height); //e
+  rect(200, 10, 50, height); //f
+  rect(250, 10, 50, height); //g
+  rect(300, 10, 50, height); //a
+  rect(350, 10, 50, height); //b
+  rect(400, 10, 50, height); //c
 
   //Draw the black keys.
   fill(0);
@@ -118,7 +111,7 @@ public boolean surfaceTouchEvent(MotionEvent event) {
   //There was a touch event - what kind?
   int action = event.getAction();
   
-  //get the X position of where the touch was, so we know which note to play.
+  //Get the X position of where the touch was, so we know which note to play.
   int pos = (int)event.getX();
 
   //If the action was a touch on the screen, play a note based on the positon of the touch.
@@ -156,8 +149,8 @@ public boolean surfaceTouchEvent(MotionEvent event) {
     }
   }
 
-  // if you want the variables for motionX/motionY, mouseX/mouseY etc.
-  // to work properly, you'll need to call super.surfaceTouchEvent().
+  //If you want the variables for motionX/motionY, mouseX/mouseY etc.
+  //to work properly, you'll need to call super.surfaceTouchEvent().
   return super.surfaceTouchEvent(event);
 }
 

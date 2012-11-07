@@ -50,15 +50,14 @@ void setup() {
   //Start our thread.
   thread1.start();
   
-  //Lock screen in portrait mode.
+  //Lock the screen in portrait mode.
   orientation(PORTRAIT); 
   
-  //Drawing options.
-  smooth(); //anti-aliased edges, creates smoother edges
+  //Here are your drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates, (the default is the TL corner)
   
-  //Paint background color.
+  //Paint the background color.
   background(255,0,0);//red
 }
 

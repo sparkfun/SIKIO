@@ -13,13 +13,15 @@
 */
 
 class IOIOThread extends Thread {
-
+  
+  //Variables for our Thread constuctor. These define the threads properties. 
   boolean running; //is our thread running?
   String id; 
   int wait;  //how often we want our thread to run
+  
+  //Variables used in this sketch.
   //DigitalInput button; //our button is a DigitalInput
   AnalogInput photo; //our photocell is an AnalogInput
-  int count;
   //int buttonPin = 4; //pin for our led
   int photoPin = 39; // pin for our potentiometer
   float photoVal; //our analog values range from 0 to 1
@@ -27,11 +29,9 @@ class IOIOThread extends Thread {
 
 
   IOIOThread(String s, int w) {
-
     id = s;
     wait = w;
     running = false;
-    count = 0;
   }
 
 

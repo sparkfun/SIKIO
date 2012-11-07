@@ -14,10 +14,15 @@
    -10k
    
    OPERATION:
+   The sketch opens and reads an analog value off of the photocell. A line is printed, where the 
+   height of the line depends on how much light is hitting the photocell. There is also a button
+   that can be hit to log the analog data to a txt file onto your Android's removable storage.
+   To access the data you logged, plug your Android back into the computer, turn on USB Storage, 
+   and you should see a text file called 'sensorValues.txt' in your main directory. The line grows
+   taller the darker it is. 
+   
    Make sure you check the WRITE_EXTERNAL_STORAGE permission in addition to the normal 
-   INTERNET permssion under 'sketch permissions'. To access the data you logged, plug your 
-   phone back into the computer, turn on USB Storage, and you should see a text file called 
-   'sensorValues.txt' in your main directory.
+   INTERNET permssion under 'sketch permissions'. 
 */
 
 // Import APWidgets library - download from: http://code.google.com/p/apwidgets/downloads/list
@@ -31,63 +36,56 @@ import ioio.lib.impl.*;
 import ioio.lib.api.*;
 import ioio.lib.api.exception.*;
 
-//we need the android.os library to check if our external media is available and writable
+//We need the android.os library to check if our external media is available and writable
 import android.os.*;
 
-//create a IOIO instance
+//Create a IOIO instance.
 IOIO ioio = IOIOFactory.create();
 
-//create a thread for our IOIO code
+//Create a thread for our IOIO code.
 IOIOThread thread1; 
 
 //We're going to use text in this example, so we need a font.
 PFont font;
 
-//string to keep track of button value
+//We need to keep track of the button value and be able to print the value, so we use string.
 String s;
 
-int xPos = 1;
-
+//These two variables hold the state of storage device's availability. 
 boolean mExternalStorageAvailable = false;
 boolean mExternalStorageWriteable = false;
+
+//These will hold some feedback statements. 
 String s1, s2, s3;
 
-APWidgetContainer widgetContainer; 
+//Make a widget container and 1 button
+APWidgetContainer widgetContainer;
 APButton start;
-
-float displayW, displayH;
 
 void setup() {
 
-  //pick a font - PFont.list()[0] is good because it will list the available fonts on our system as an array and just pick the first one
+  //Pick a font - PFont.list()[0] is good, because it will list the available fonts on our system as an array 
+  //and just pick the first one.
   font = createFont(PFont.list()[0], 32);
   textFont(font);
 
-  //instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds
+  //Instantiate our thread, with a thread id of 'thread1' and a wait time of 100 milliseconds.
+  //The wait time is the time in between interations of the thread.  
   thread1 = new IOIOThread("thread1", 100);
-  //start our thread
+  //Start our thread.
   thread1.start();
   
-  //set orientation
+  //Set orientation.
   orientation(PORTRAIT);
   
-  //Set the size of the display to be your screen size. displayWidth and displayHeight
-  //constants are defined based on your screen size.
-  displayW = displayWidth;
-  displayH = displayHeight; 
-  
-  //Drawing options.
-  smooth(); //anti-aliased edges, creates smoother edges
+  //Here are your drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates, (the default is the TL corner)
-
-  //Set background to black
-  background(0);
   
-  //Method that checks whether local storage is accessible and writable
+  //This is a method that checks whether local storage is accessible and writable.
   checkStorage();
 
-  //create new container for widgets
+  //Create a new container for widgets.
   widgetContainer = new APWidgetContainer(this);
   start = new APButton(10, 150, "start");
   widgetContainer.addWidget(start);
@@ -96,37 +94,32 @@ void setup() {
 void draw() {
 
   background(0);
-
+  
+  //Draw a verticle bar graph. 
   stroke(255, 0, 0); //red
-  //draw a line that corresponds to our current sensor reading
-  line(xPos, height, xPos, height - (thread1.photoVal * 1000));
+  strokeWeight(30); //width of line in pixels
+  //Now draw a line that corresponds to our current sensor reading.
+  line(width/2, height, width/2, height - (thread1.photoVal * 1000));
 
-  //if the line goes off the screen, start over
-  if (xPos >= width) {
-    xPos = 0;
-  }
-  else {
-    xPos++;
-  }
-
-
-  text("Accessible: " + s1, 10, 50);
-  text("Writable: " + s2, 10, 100);
-  text("Status: " + s3, 10, 150);
+  //We can print the analog value, log status, and whether or not the SD
+  //card is available.
+  text("Analog Value: " + thread1.photoVal, 10, 50);
+  text("Log Status: " + s3, 10, 100);
+  //text("Accessible: " + s1, 10, 150);
+  //text("Writable: " + s2, 10, 200);
 }
 
+//This function handles the button action. 
 void onClickWidget(APWidget widget) {
-
+  
   if (widget == start) {
-
     s3 = "got button press";
 
     try {
-      
       //update status
       s3 = "recording";
        
-      //get the external storage directory 
+      //Get the external storage directory. 
       File root = Environment.getExternalStorageDirectory();
       
       //if we can write to our storage, create a text file, and fire up a BufferedWriter to write to it
@@ -135,33 +128,34 @@ void onClickWidget(APWidget widget) {
         FileWriter writer = new FileWriter(sensorValues);
         BufferedWriter out = new BufferedWriter(writer);
         
-        //just a few seconds worth
-        for (int i = 0; i < 100000; i++) {
-
-          //take 1 of every 100, don't need too many values too quickly
-          if (i%100 == 0) {
-            //write to our text file
-            out.write(i + "   " + thread1.photoVal + "\n");
-          }
-        }
+       //We just want to take a few seconds worth of data when we hit the button. 
+       for (int i = 0; i < 700000; i++) {
+         //take 1 of every 100, don't need too many values too quickly
+         if (i%100 == 0) {
+           //write to our text file
+           out.write(i + thread1.photoVal + "/r");
+         }
+       }
         
-        //close our BufferedWriter
-        out.close();
+       //Close our BufferedWriter.
+       out.close();
 
-        //we're done!
-        s3 = "done";
+       //We're done!
+       s3 = "done";
       }
     } 
     catch (IOException e) {
-      //let us know if we couldn't log for some reason
+      //Let us know if we couldn't log for some reason.
       s3 = "execption";
     }
   }
 }
 
+//This function checks the removable storage device to see if it is ready.
+//There are some global variables s1 and s2 that can print debug information.
 public void checkStorage() {
 
-  //get the readable/writable state of our media storage
+  //Get the readable/writable state of our media storage
   String state = Environment.getExternalStorageState();
 
   if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -170,15 +164,15 @@ public void checkStorage() {
     s1 = s2 = "true";
   } 
   else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-    // We can only read the media
+    // We can only read the media.
     mExternalStorageAvailable = true;
     s1 = "true";
     mExternalStorageWriteable = false;
     s2 = "false";
   } 
   else {
-    // Something else is wrong. It may be one of many other states, but all we need
-    //  to know is we can neither read nor write
+    //Something else is wrong. It may be one of many other states, but all we need
+    //to know is we can neither read nor write.
     mExternalStorageAvailable = mExternalStorageWriteable = false;
     s1 = s2 = "false";
   }
