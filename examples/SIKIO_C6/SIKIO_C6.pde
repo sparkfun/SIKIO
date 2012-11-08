@@ -28,7 +28,7 @@
 // Import APWidgets library - download from: http://code.google.com/p/apwidgets/downloads/list
 import apwidgets.*;
 
-//Import IOIO library - this is from the link in the install section of your SIKIO guide
+//Import IOIO library - this is from the link in the install section of your SIKIO guide.
 import ioio.lib.util.android.*;
 import ioio.lib.spi.*;
 import ioio.lib.util.*;
@@ -95,7 +95,7 @@ void draw() {
 
   background(0);
   
-  //Draw a verticle bar graph. 
+  //Draw a verticle bar graph.
   stroke(255, 0, 0); //red
   strokeWeight(30); //width of line in pixels
   //Now draw a line that corresponds to our current sensor reading.

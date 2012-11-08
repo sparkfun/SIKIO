@@ -12,9 +12,9 @@
    -3 330Ohm resistors
    
    OPERATION:
-   The sketch starts by running IOIOThread.pde. In the thread, a flag is set through the 
-   global variable 'lightON', when the LED turns on and off. This global variable is read in 
-   the code below and a black or white box is drawn depending on the state of the LED.
+   In this example, your app will have three buttons that control ON/OFF for each color 
+   of the tri-color LED. Pin 4 on the IOIO is connected to the red LED, Pin 5 is connected 
+   to green, and Pin 6 is connected to blue.
  */
 
 //Import the IOIO libraries. If you want to interact with the IOIO board, you must 
@@ -50,12 +50,6 @@ APButton blueButton;
 //used in this file or the IOIOThread.pde file. 
 boolean lightOn = false;
 
-//These global variables contain your display width and height and will be used to 
-//scale objects that are drawn. We draw things based off of the dispaly size, because 
-//the code will be able to work with different display resolutions. These variables
-//need to be floats, since we will be calculating things with them.
-float displayW, displayH;
-
 //Create boolean variables that will be read by our thread when buttons are pressed.
 boolean redOn, greenOn, blueOn = false;
 
@@ -69,13 +63,7 @@ void setup() {
   //Lock screen in portrait mode.
   orientation(PORTRAIT);
   
-  //Set the size of the display to be your screen size. These variables are defined from the
-  //size() function in Processing
-  displayW = displayWidth; //error
-  displayH = displayHeight; 
-  
   //Drawing options.
-  smooth(); //anti-aliased edges, creates smoother edges
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates
 
@@ -96,16 +84,18 @@ void setup() {
 //Main draw loop is repeated 60 times a second. 
 void draw() {
   
+  //The background can be used to clear the window at the beginning of each draw loop.
+  //The buttons will be displayed on top of the background and will function out of
+  //the main draw loop.
   background(0,255,0); //draw green background
 }
 
 
-//onClickWidget is called when a widget is clicked/touched
+//onClickWidget is called when a widget is clicked/touched.
 void onClickWidget(APWidget widget) {
 
   //Each button toggles the boolean associated with that button's led color
-  //In the ioio thread, we switch the LED on or off based on the status of that boolean
-  
+  //In the ioio thread, we switch the LED on or off based on the status of that boolean.
   if (widget == redButton) { 
      redOn = !redOn;
   }

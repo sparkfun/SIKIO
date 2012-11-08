@@ -23,7 +23,7 @@ class IOIOThread extends Thread {
   //Define the variables you will use.
   DigitalInput button; //our button is a DigitalInput
   AnalogInput pot; //our potentiometer is an AnalogInput
-  int buttonPin = 7; //pin for our led
+  int buttonPin = 7; //pin for our button
   int potPin = 40; // pin for our potentiometer
   float potVal; //our analog values range from 0 to 1
   boolean buttonVal; //digital in is either 0 OR 1 (true or false)

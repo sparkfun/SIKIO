@@ -11,7 +11,8 @@
    HARDWARE:
    -piezo speaker
    
-   OPERATION: Plug the speaker into pin 11 on the IOIO. When the app opens, you should see a piano keyboard. Hit different 
+   OPERATION: 
+   Plug the speaker into pin 11 on the IOIO. When the app opens, you should see a piano keyboard. Hit different 
    white keys to play different notes. The black keys do not generate any sound, we will leave that up to you to figure out.
 */
 
@@ -32,7 +33,7 @@ IOIO ioio = IOIOFactory.create();
 //Create a thread for our IOIO code.
 IOIOThread thread1; 
 
-//Make a widget container and 8 buttons.
+//Make a widget container and 8 buttons. Each button will play a note.
 APWidgetContainer widgetContainer; 
 APButton c;
 APButton d;
@@ -52,18 +53,18 @@ void setup() {
   //Start our thread.
   thread1.start();
 
-  //Lock the screen in portrait mode.
-  orientation(PORTRAIT);
+  //Lock the screen in landscape mode.
+  orientation(LANDSCAPE);
   
   //Here are your drawing options.
-  noStroke(); //disables the outline
-  rectMode(CENTER); //place rectangles by their center coordinates
+  //noStroke(); //disables the outline
+  //rectMode(CENTER); //place rectangles by their center coordinates
 }
 
 //Main draw loop is repeated 60 times a second. 
 void draw() {
 
-  //Set background to black
+  //Set background to black.
   background(0,0,0);
 
   //Draw the white keys.
@@ -105,7 +106,7 @@ void playTone(int freq) {
   thread1.piezo.close();
 }
 
-//This is how we handle touch events.
+//This is called when there is a touch event.
 public boolean surfaceTouchEvent(MotionEvent event) {  
 
   //There was a touch event - what kind?

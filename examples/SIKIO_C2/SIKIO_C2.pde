@@ -4,14 +4,15 @@
    
    PURPOSE:
    In this example, you will learn how to use digtial and analog input on the IOIO. The inputs
-   will control the shading of two drawn boxes.
+   will control the shading of two drawn boxes. The analog values are also printed to the screen.
    
    HARDWARE:
    -button
    -potentiometer
    -10kOhm resistor
    
-   OPERATION: A button is connected to pin 7 and a pot connected to pin 40. The app opens and
+   OPERATION: 
+   A button is connected to pin 7 and a pot connected to pin 40. The app opens and
    two boxes are displayed with numbers above. Depending on the value of the pot, the left box
    will be shaded from white to black. The button simply changes the right most box from white 
    to black. A value between 0 and 1 will be displayed based on the pot and button values. 
@@ -37,9 +38,6 @@ PFont font;
 //String to keep track of the button value.
 String s;
 
-//Global float variables that define your display width and height.
-float displayW, displayH;
-
 //Main setup function; this is run once and is generally used to initialize things. 
 void setup() {
 
@@ -54,15 +52,9 @@ void setup() {
   thread1.start();
   
   //Lock screen in portrait mode.
-  orientation(PORTRAIT);
-  
-  //Set the size of the display to be your screen size. displayWidth and displayHeight
-  //constants are automatically defined based on your screen size.
-  displayW = displayWidth;
-  displayH = displayHeight; 
+  orientation(PORTRAIT); 
    
   //Drawing options.
-  smooth(); //anti-aliased edges, creates smoother edges
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates
 }
@@ -77,7 +69,7 @@ void draw() {
   //to 0-255)
   fill(thread1.potVal * 255);
   //draw a sqaure with that fill slightly left of center
-  rect(displayW/2-50, displayH/2, 100, 100); 
+  rect(width/2-50, height/2, 100, 100); 
   
   //Now set our fill color to white or black, based on our button state.
   if(thread1.buttonVal == true) {
@@ -92,7 +84,7 @@ void draw() {
   }
   
   //Draw another square next to our first one showing the button state
-  rect(displayW/2+50, displayH/2, 100, 100);
+  rect(width/2+50, height/2, 100, 100);
   
   //Put some text at the top displaying our potentionmeter and button values.
   fill(255);

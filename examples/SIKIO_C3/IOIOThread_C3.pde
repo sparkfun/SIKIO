@@ -20,7 +20,7 @@ class IOIOThread extends Thread {
   int wait;  //how often we want our thread to run
   int count;
   
-  //Define your variables here.
+  //Define your IOIO variables here.
   PwmOutput piezo; //Piezo buzzers are pulse-modulated output
   int piezoPin = 11; // pin for our potentiometer
   int freq = 523; //our beginning frequency
