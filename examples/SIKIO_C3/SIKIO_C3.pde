@@ -54,7 +54,8 @@ void setup() {
   thread1.start();
 
   //Lock the screen in landscape mode.
-  orientation(LANDSCAPE);
+  //orientation(PORTRAIT);
+  //orientation(LANDSCAPE);
   
   //Here are your drawing options.
   //noStroke(); //disables the outline
@@ -77,7 +78,7 @@ void draw() {
   rect(250, 10, 50, height); //g
   rect(300, 10, 50, height); //a
   rect(350, 10, 50, height); //b
-  rect(400, 10, 50, height); //c
+  //rect(400, 10, 50, height); //c
 
   //Draw the black keys.
   fill(0);
