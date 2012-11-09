@@ -44,6 +44,8 @@ APButton a;
 APButton b;
 APButton c2;
 
+boolean ioio_good = false;
+
 //Main setup function; this is run once and is generally used to initialize things. 
 void setup() {
 
@@ -52,14 +54,10 @@ void setup() {
   thread1 = new IOIOThread("thread1", 100);
   //Start our thread.
   thread1.start();
-
-  //Lock the screen in landscape mode.
-  //orientation(PORTRAIT);
-  //orientation(LANDSCAPE);
   
-  //Here are your drawing options.
-  //noStroke(); //disables the outline
-  //rectMode(CENTER); //place rectangles by their center coordinates
+  while(ioio_good == false){
+   
+  }
 }
 
 //Main draw loop is repeated 60 times a second. 
@@ -78,7 +76,7 @@ void draw() {
   rect(250, 10, 50, height); //g
   rect(300, 10, 50, height); //a
   rect(350, 10, 50, height); //b
-  //rect(400, 10, 50, height); //c
+  rect(400, 10, 50, height); //c
 
   //Draw the black keys.
   fill(0);
@@ -155,5 +153,4 @@ public boolean surfaceTouchEvent(MotionEvent event) {
   //to work properly, you'll need to call super.surfaceTouchEvent().
   return super.surfaceTouchEvent(event);
 }
-
 

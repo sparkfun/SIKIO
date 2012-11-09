@@ -75,9 +75,6 @@ void setup() {
   //Start our thread.
   thread1.start();
   
-  //Set orientation.
-  orientation(PORTRAIT);
-  
   //Here are your drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates, (the default is the TL corner)

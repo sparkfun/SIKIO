@@ -33,7 +33,7 @@ class IOIOThread extends Thread {
   }
 
   void start() {
-    
+  
     running = true;
     try {
       //connect to the IOIO
@@ -41,8 +41,8 @@ class IOIOThread extends Thread {
     } 
     catch (ConnectionLostException e) {
     }
-
-    try {
+    
+    try{
 
       //Open and close the piezo pin just to give us a connection and set the duty cycle
       piezo = ioio.openPwmOutput(piezoPin, freq); 
@@ -59,7 +59,7 @@ class IOIOThread extends Thread {
   }
 
   void run() {
-
+    ioio_good = true;
     while (running) {
     
       //All of our actions happen off the button presses in the Processing code, so there

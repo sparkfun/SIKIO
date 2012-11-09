@@ -50,9 +50,6 @@ void setup() {
   thread1 = new IOIOThread("thread1", 100);
   //Start our thread.
   thread1.start();
-  
-  //Lock screen in portrait mode.
-  orientation(PORTRAIT); 
    
   //Drawing options.
   noStroke(); //disables the outline

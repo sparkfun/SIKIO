@@ -60,9 +60,6 @@ void setup() {
   //start our thread
   thread1.start();
   
-  //Lock screen in portrait mode.
-  orientation(PORTRAIT);
-  
   //Drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates
