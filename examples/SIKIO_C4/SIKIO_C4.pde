@@ -19,6 +19,8 @@ Instructions:
 */
 
 // Grab IOIO libraries
+import ioio.lib.util.android.*;
+import ioio.lib.spi.*;
 import ioio.lib.util.*;
 import ioio.lib.impl.*;
 import ioio.lib.api.*;
@@ -30,15 +32,14 @@ int servo_degrees = 90; // Servo Angle in degrees, range: 0 - 180
 
 // Create IOIO object and declare thread
 IOIO ioio = IOIOFactory.create();
-myIOIOThread thread1; 
+IOIOThread thread1; 
 
 void setup() 
 {
   // Create and start IOIO thread
-  thread1 = new myIOIOThread("thread1", 100);
+  thread1 = new IOIOThread("thread1", 100);
   thread1.start();
   
-  size(screenWidth,screenHeight); // Set application to screen size
   noStroke(); // Turn off outlines
   fill(255,0,0); // Set fill color to red
   rectMode(CENTER); // Place rectangles by their center coordinates
@@ -58,7 +59,7 @@ void draw()
   
   // Set servo duty cycle between .01 and .09 (1% to 9%) 
   //  based on where you touched the screen
-  servo_duty = .01+.08*((float)mouseX/(float)screenWidth); 
+  servo_duty = .01+.08*((float)mouseX/(float)width); 
   
   // Calculate rough servo position based on duty cycle
   servo_degrees = round(map(servo_duty,0,.1,0,180));    
@@ -67,8 +68,8 @@ void draw()
   text("Sparkfun IOIO Kit, Example 4 - Servo Control",25,25);
   
   // Print screen size
-  text("Screen width:  " + screenWidth,25,75);
-  text("Screen height: " + screenHeight,25,100);
+  text("Screen width:  " + width,25,75);
+  text("Screen height: " + height,25,100);
   
   // Print Servo information
   text("Servo Dutycycle: " + (float)round(servo_duty*1000.0)/(float)1000.0,25,125);  // 0.0xx

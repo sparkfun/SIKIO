@@ -1,7 +1,7 @@
 // SparkFun IOIO Kit, Example 4 - Servo Control (continued)
 
 // Thread that contains IOIO commands
-class myIOIOThread extends Thread {
+class IOIOThread extends Thread {
 
   boolean running;  // Is the thread running, true or false?
   String id; // Thread ID
@@ -9,7 +9,7 @@ class myIOIOThread extends Thread {
   PwmOutput servo;  // Declaring Servo PWM output on the IOIO
 
   // Initialize Thread variables
-  myIOIOThread(String s, int w) {
+  IOIOThread(String s, int w) {
     id = s;
     wait = w;
     running = false;
