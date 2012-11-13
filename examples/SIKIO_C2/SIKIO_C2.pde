@@ -1,5 +1,7 @@
 /* 
    SparkFun SIKIO - Circuit 2, Digital In & Analog In
+   Hardware Concept: Digital and Analog Input
+   Android Concept: Displaying Text
    CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
    PURPOSE:
