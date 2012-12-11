@@ -15,8 +15,8 @@
    
    OPERATION:
    The sketch opens and reads an analog value off of the photocell. A line is printed, where the 
-   height of the line depends on how much light is hitting the photocell. There is also a button
-   that can be hit to log the analog data to a txt file onto your Android's removable storage.
+   height of the line depends on how much light is hitting the photocell. There is also a on-screen
+   button that can be hit to log the analog data to a txt file onto your Android's removable storage.
    To access the data you logged, plug your Android back into the computer, turn on USB Storage, 
    and you should see a text file called 'sensorValues.txt' in your main directory. The line grows
    taller the darker it is. 

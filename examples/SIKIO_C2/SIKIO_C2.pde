@@ -61,8 +61,8 @@ void setup() {
 //Main draw loop is repeated 60 times a second.
 void draw() {
   
-  //Set background to black.
-  background(0,0,0);
+  //The background can be used to clear the window at the beginning of each draw loop.
+  background(0,0,0); //Set background to black.
   
   //Set our fill to correspond to the value from our potentiometer (scale it up from 0-1 
   //to 0-255)

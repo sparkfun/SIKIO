@@ -28,9 +28,9 @@ class IOIOThread extends Thread {
   DigitalOutput redLed, greenLed, blueLed; 
 
   //Here are the pins on the IOIO board we want to use.
-  int redPin = 4;
-  int greenPin = 5;
-  int bluePin = 6;
+  int redPin = 3;
+  int greenPin = 2;
+  int bluePin = 1;
 
   //Our Thread constructor, here we configure the thread.
   IOIOThread(String s, int w) {

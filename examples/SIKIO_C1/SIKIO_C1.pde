@@ -13,8 +13,9 @@
    
    OPERATION:
    In this example, your app will have three buttons that control ON/OFF for each color 
-   of the tri-color LED. Pin 4 on the IOIO is connected to the red LED, Pin 5 is connected 
-   to green, and Pin 6 is connected to blue.
+   of the tri-color LED and the color of the background. Pin 3 on the IOIO is connected 
+   to the red LED, Pin 2 is connected to green, and Pin 1 is connected to blue. These are
+   defined in the IOIO_Thread_C1.
  */
 
 //Import the IOIO libraries. If you want to interact with the IOIO board, you must 
@@ -63,6 +64,8 @@ void setup() {
   //Drawing options.
   noStroke(); //disables the outline
   rectMode(CENTER); //place rectangles by their center coordinates
+  
+  background(0,0,0); //draw black background
 
   //Create a new container for widgets
   widgetContainer = new APWidgetContainer(this); 
@@ -81,10 +84,8 @@ void setup() {
 //Main draw loop is repeated 60 times a second. 
 void draw() {
   
-  //The background can be used to clear the window at the beginning of each draw loop.
-  //The buttons will be displayed on top of the background and will function out of
-  //the main draw loop.
-  background(0,255,0); //draw green background
+  //Nothing here now, you can add code in the draw loop. Remember, the buttons will be 
+  //displayed on top of the background and will function out of the main draw loop.
 }
 
 
@@ -95,14 +96,17 @@ void onClickWidget(APWidget widget) {
   //In the ioio thread, we switch the LED on or off based on the status of that boolean.
   if (widget == redButton) { 
      redOn = !redOn;
+     background(255,0,0); //draw red background
   }
   
   if(widget == greenButton) {
-    greenOn = !greenOn; 
+    greenOn = !greenOn;
+    background(0,255,0); //draw green background 
   }
   
   if(widget == blueButton) {
     blueOn = !blueOn;
+    background(0,0,255); //draw blue background
   }
 }
 
