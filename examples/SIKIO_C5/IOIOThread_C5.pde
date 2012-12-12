@@ -7,6 +7,7 @@ class IOIOThread extends Thread {
   int wait; // Thread sleep time in milliseconds
   
   DigitalOutput motor;
+  int motorPin = 18;
 
   // Initialize Thread variables
   IOIOThread(String s, int w) {
@@ -26,7 +27,7 @@ class IOIOThread extends Thread {
 
     try {
       // Turn motor off here
-      motor = ioio.openDigitalOutput(18); //use pin 18
+      motor = ioio.openDigitalOutput(motorPin); //use pin 18
       motor.write(false);
     } 
     catch (ConnectionLostException e) {
