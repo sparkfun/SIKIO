@@ -7,6 +7,7 @@ class IOIOThread extends Thread {
   String id; // Thread ID
   int wait; // Thread sleep time in milliseconds
   PwmOutput servo;  // Declaring Servo PWM output on the IOIO
+  int servoPin = 5; // Pin for the Servo PWM signal
 
   // Initialize Thread variables
   IOIOThread(String s, int w) {
@@ -26,7 +27,7 @@ class IOIOThread extends Thread {
 
     // Initialize PWM pin for Servo and set initial duty cycle
     try {
-      servo = ioio.openPwmOutput(5, 50); // Pin 5, 50Hz (period = 20ms)
+      servo = ioio.openPwmOutput(servoPin, 50); // Pin 5, 50Hz (period = 20ms)
       servo.setDutyCycle(servo_duty);
     } 
     catch (ConnectionLostException e) {
