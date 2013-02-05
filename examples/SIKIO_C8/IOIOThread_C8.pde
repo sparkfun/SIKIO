@@ -6,7 +6,7 @@ class IOIOThread extends Thread {
   DigitalInput button; //our button is a DigitalInput
   AnalogInput pot; //our potentiometer is an AnalogInput
   int count;
-  int buttonPin = 8; //pin for our led
+  int buttonPin = 4; //pin for our led
   boolean buttonVal; //digital in is either 0 OR 1 (true or false)
 
 
