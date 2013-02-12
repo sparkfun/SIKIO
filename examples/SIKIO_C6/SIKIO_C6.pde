@@ -38,6 +38,8 @@ import ioio.lib.api.exception.*;
 
 //We need the android.os library to check if our external media is available and writable
 import android.os.*;
+//This is used for file IO, reading and writing to the SD card
+import java.io.*; 
 
 //Create a IOIO instance.
 IOIO ioio = IOIOFactory.create();
