@@ -27,6 +27,8 @@ import ioio.lib.impl.*;
 import ioio.lib.api.*;
 import ioio.lib.api.exception.*;
 
+import android.view.MotionEvent; 
+
 //Create a IOIO instance.
 IOIO ioio = IOIOFactory.create();
 
