@@ -23,10 +23,9 @@
    dialogue, connect your Android phone to your powered IOIO device with a USB cable.
    Every half second, the IOIO Thread sends a command to the IOIO to turn the onboard
    LED on or off. It also sets the global variable 'lightON' at that time before going
-   to back to sleep. The draw loop in the main processing code (code below), 
-   The sketch starts by running IOIOThread.pde. In the thread, a flag is set through the 
-   global variable 'lightON', when the LED turns on and off. This global variable is read in 
-   the code below and a black or white box is drawn depending on the state of the LED.
+   to back to sleep. In the thread, a flag is set through the global variable 'lightON',
+   when the LED turns on and off. This global variable is read within the draw() loop
+   and a black or white box is drawn depending on the state of the LED.
 */
 
 //Import the IOIO libraries. If you want to interact with the IOIO board, you must 
