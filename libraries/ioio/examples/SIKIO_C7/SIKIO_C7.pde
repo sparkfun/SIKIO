@@ -53,8 +53,6 @@ CameraSurfaceView gCamSurfView;
 PImage gBuffer;
 Camera cam;
 
-ImageUpload upload;
-
 //create a IOIO instance
 IOIO ioio = IOIOFactory.create();
 
