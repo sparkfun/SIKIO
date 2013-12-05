@@ -1,1 +1,0 @@
-Here is where you will find all of the source code and apk files for each example.
