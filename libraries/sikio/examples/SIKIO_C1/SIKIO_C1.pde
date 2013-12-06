@@ -49,18 +49,13 @@ PFont font;
 
 void setup() 
 {
-  //size(displayWidth, displayHeight);
   new SikioManager(this).start();
+  
+  background(0, 0, 0); // Draw black background
 
   // Use default font, size 32.
   font = createFont(PFont.list()[0], 32);
   textFont(font);
-
-  //Drawing options.
-  //noStroke(); //disables the outline
-  //rectMode(CENTER); //place rectangles by their center coordinates
-
-  background(0, 0, 0); // Draw black background
 
   // Initialize widget container
   widgetContainer = new APWidgetContainer(this); 
