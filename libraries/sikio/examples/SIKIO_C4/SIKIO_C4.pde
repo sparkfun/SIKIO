@@ -1,50 +1,45 @@
-/*
-SparkFun IOIO Kit, Example 4 - Servo Control
-Created 04/18/12 by Jordan McConnell at SparkFun Electronics
-
-This is a simple Android app made with Processing
-The purpose is to demonstrate basic servo motor control
- using one of the PWM pins on the IOIO board.
-
-Instructions:
-1. Load code into Processing 2.0a5
-2. Connect your Android to the computer with a USB cable
-3. Using Android mode, go to Sketch -> Run on Device (Ctrl+shift+r)
-4. If that succeeded, connect a power source to the IOIO.
-5. Connect Servo's VCC and GND to IOIO's 5V and GND.
-6. Connect Servo's control line to IOIO pin 5.
-7. Finally, connect your app loaded phone to the IOIO via USB.
-8. If it works, you should see some text on the screen.
-9. Control the Servo by moving your finger around on the screen.
+/* 
+   SparkFun SIKIO - Circuit 4
+   Hardware Concept: Servo Motor Control
+   Android Concept: Screen Touch Control
+   CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+   
+   PURPOSE:
+   This example demonstrates how to control a servo motor using PWM output.
+   
+   HARDWARE:
+   -Servo Motor
+   
+   OPERATION:
+   Connect Servo's VCC and GND to IOIO-OTG's 5V and GND. Connect Servo's control
+   pin to IOIO's pin 5. Once the app is loaded and your device is connected to
+   the IOIO, you can control the angle of the Servo by moving your finger back
+   and forth on the x axis (side to side).
 */
 
-// Grab IOIO libraries
-import ioio.lib.util.android.*;
 import ioio.lib.spi.*;
-import ioio.lib.util.*;
-import ioio.lib.impl.*;
 import ioio.lib.api.*;
+import ioio.lib.util.*;
+import ioio.lib.util.android.*;
+import ioio.lib.android.bluetooth.*;
+import ioio.lib.impl.*;
+import sikio.*;
+import ioio.lib.android.accessory.*;
 import ioio.lib.api.exception.*;
 
-PFont font;  // font for screen display
+PFont font;  // Font for screen display
 float servo_duty = .05; // Servo Duty Cycle, range 0.01 - 0.09
 int servo_degrees = 90; // Servo Angle in degrees, range: 0 - 180
 
-// Create IOIO object and declare thread
-IOIO ioio = IOIOFactory.create();
-IOIOThread thread1; 
-
 void setup() 
 {
-  // Create and start IOIO thread
-  thread1 = new IOIOThread("thread1", 100);
-  thread1.start();
+  new SikioManager(this).start();
   
   noStroke(); // Turn off outlines
   fill(255,0,0); // Set fill color to red
   rectMode(CENTER); // Place rectangles by their center coordinates
   
-  // Create and set font
+  // Create and set font, use Monospaced as our font
   font = createFont("Monospaced",32);
   textFont(font);
 }
@@ -65,7 +60,7 @@ void draw()
   servo_degrees = round(map(servo_duty,0,.1,0,180));    
   
   // Print title
-  text("Sparkfun IOIO Kit, Example 4 - Servo Control",25,25);
+  text("SIKIO, Circuit 4 - Servo Control",25,25);
   
   // Print screen size
   text("Screen width:  " + width,25,75);

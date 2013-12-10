@@ -25,12 +25,15 @@ void ioioSetup(IOIO ioio) throws ConnectionLostException
 // to other applications.
 void ioioLoop(IOIO ioio) throws ConnectionLostException
 {
+  // Try/catch block necessary for using Thread.sleep function
   try 
   {
     led.write(lightOn); // Turn the LED on or off
     lightOn = !lightOn; // Change the lightOn from true to false or vice versa
     Thread.sleep(500); // Don't call this loop again for 500 milliseconds
-  } 
+  }
+  // The catch block can be used to find out more information about an error
+  // In this case it's unused but needs to be present since the sleep function can result in this type of error
   catch (InterruptedException e) 
   {
   }

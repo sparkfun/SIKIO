@@ -40,8 +40,8 @@ import sikio.*;
 import ioio.lib.android.accessory.*;
 import ioio.lib.api.exception.*;
 
-// This ia a global boolean variable to keep track of the LED on/off state. The variable can be
-// used in this file or the IOIO_Tab. 
+// This is a global boolean variable to keep track of the LED on/off state. The variable can be
+// used in this file or the IOIO_Tab. In this case it's only set in the IOIO_Tab.
 boolean lightOn = false;
 
 // Main setup function; this is run once and is generally used for initialization. 
