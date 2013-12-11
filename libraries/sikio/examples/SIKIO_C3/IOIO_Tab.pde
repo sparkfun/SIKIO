@@ -1,12 +1,10 @@
 /* 
-  SparkFun SIKIO - Circuit 3
-  CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
-*/
+ SparkFun SIKIO - Circuit 3
+ CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
+ */
 
-//Define your IOIO variables here.
-PwmOutput piezo; //Piezo buzzers are pulse-modulated output
-int piezoPin = 11; // pin for our potentiometer
-int freq = 523; //our beginning frequency
+PwmOutput piezo; // Piezo buzzers are pulse-modulated output
+int piezoPin = 11; // Pin for our piezo speaker
 
 void ioioSetup(IOIO ioio) throws ConnectionLostException 
 {
@@ -18,8 +16,20 @@ void ioioSetup(IOIO ioio) throws ConnectionLostException
 
 void ioioLoop(IOIO ioio) throws ConnectionLostException
 {
-  ioio_good = true;
-  
-  // All of our actions happen off the button presses in the Processing code, so there
-  // isn't anything in our run method.
+  // If a 'piano' key has been pressed, play that note for 100 ms
+  if (playTone == true) 
+  {
+    try 
+    {
+      piezo = ioio.openPwmOutput(piezoPin, freq);
+      piezo.setDutyCycle(.5);
+      Thread.sleep(100);
+    } 
+    catch (InterruptedException e) 
+    {
+    }
+    piezo.close(); // Turn off signal to piezo speaker
+    playTone = false; // Set to false so note doesn't continuously play, and waits for another screen press
+  }
 }
+
