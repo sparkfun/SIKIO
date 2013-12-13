@@ -12,7 +12,10 @@
    a digital pin of the microcontroller can't supply enough current to drive the motor. 
    
    HARDWARE:
-   This example requires a motor, a NPN transistor, and a 10k resistor.
+   -DC motor
+   -NPN transistor
+   -330 Ohm resistor
+   -Diode
    
    OPERATION:
    Upload the application to your Android. Connect the 10k resistor (or resistor + wire) to
@@ -27,52 +30,57 @@
    'motorOn' variable.
 */
 
+import ioio.lib.spi.*;
+import ioio.lib.api.*;
+import ioio.lib.util.*;
+import ioio.lib.util.android.*;
+import ioio.lib.android.bluetooth.*;
+import ioio.lib.impl.*;
+import sikio.*;
+import ioio.lib.android.accessory.*;
+import ioio.lib.api.exception.*;
+
+// Libraries for text input
 import apwidgets.*;
 import android.text.InputType;
 import android.view.inputmethod.EditorInfo;
 import android.text.format.Time;
 
-// Grab IOIO libraries
-import ioio.lib.util.android.*;
-import ioio.lib.spi.*;
-import ioio.lib.util.*;
-import ioio.lib.impl.*;
-import ioio.lib.api.*;
-import ioio.lib.api.exception.*;
-
+// Needed for text field
 APWidgetContainer widgetContainer; 
 APEditText textField;
 
-// Create IOIO object and declare thread
-IOIO ioio = IOIOFactory.create();
-IOIOThread thread1; 
+int motorOn = 0; // Keeps track of whether motor should be turned on, 1 if so
 
-long endTimeMillis=0;
-long inputTime=0;
-int motorOn=0;
-long countdown=0;
-Time hitStart = new Time();
-Time now = new Time();
+// Variables to help keep track timer
+long endTimeMillis = 0; // When the timer should end
+long inputTime = 0; // When the timer was started
+long countdown = 0; // How long timer has left before stopping
+Time hitStart = new Time(); // Used to get time at button press
+Time now = new Time(); // Used to get current time and figure out how much time remains
 
-void setup() {
-  // Create and start IOIO thread
-  thread1 = new IOIOThread("thread1", 100);
-  thread1.start();
+void setup() 
+{
+  new SikioManager(this).start();
   
-  widgetContainer = new APWidgetContainer(this); //create new container for widgets
-  textField = new APEditText(20, 75, displayWidth/3, 100); //create a textfield from x- and y-pos., width and height
-  widgetContainer.addWidget(textField); //place textField in container
-  textField.setInputType(InputType.TYPE_CLASS_NUMBER);
+  // Set up text field to allow user to input numbers and press done  
+  widgetContainer = new APWidgetContainer(this); // Create new container for widgets
+  textField = new APEditText(20, 75, displayWidth/3, 100); // Create a textfield from x- and y-pos., width and height
+  widgetContainer.addWidget(textField); // Place textField in container
+  textField.setInputType(InputType.TYPE_CLASS_NUMBER); // Use numeric inputs
   textField.setImeOptions(EditorInfo.IME_ACTION_DONE);
   textField.setCloseImeOnDone(true);
   textSize(30);
 }
 
-void draw() {
+void draw() 
+{
+  // Clear screen and set background to black
   background(0);
   
-  now.setToNow();
+  now.setToNow(); // Get current time
   
+  // If the motor is running, calculate time left on timer, if none is left, set motorOn variable to 0 so motor will turn off
   if(motorOn==1)
   {
     countdown = (endTimeMillis - now.toMillis(false))/1000;
@@ -81,26 +89,28 @@ void draw() {
       motorOn=0;
       countdown=0;
     }
-    
   }
 
-
-
-  //text(textField.getText(), 10, 10); //display the text in the text field
+  // Display Countdown and associated text on screen
   text("Enter Seconds to Turn on Motor:",20,50);
   text("Countdown:",20,230);
   text(int(countdown), 20, 270);
+  
+  // Extra data that could be of interest to display
+  //text(textField.getText(), 10, 10); // Display the text in the text field
   //text(hit.toMillis(false), 10, 50);
   //text(now.format("%H%M%S"), 10, 50);
 }
 
-void onClickWidget(APWidget widget) {
-  if (widget == textField) {
+// When text field is entered and done is hit, find input time, and calculate the end time for the timer, turn motor variable on
+void onClickWidget(APWidget widget) 
+{
+  if (widget == textField) 
+  {
     inputTime = int(textField.getText());
-    inputTime = inputTime * 1000; //convert sec to ms
+    inputTime = inputTime * 1000; // Convert sec to ms
     hitStart.setToNow();
-    motorOn=1;
+    motorOn = 1;
     endTimeMillis = hitStart.toMillis(false) + inputTime;
   }
 }
-
