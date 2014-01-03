@@ -5,8 +5,8 @@
    CC BY-SA, http://creativecommons.org/licenses/by-sa/3.0/
    
    PURPOSE:
-   Takes a picture when an external button is hit. The image is saved to the root directory
-   of the SD card in a file called image.jpg.
+   Takes a picture when an external button is hit. A Sikio folder is created in the root directory
+   of the SD card and the image is saved to a file called image.jpg in that folder.
    
    HARDWARE:
    -push button
@@ -41,6 +41,8 @@ import android.view.Surface;
 import android.os.*;
 import java.io.File;
 import java.io.FileOutputStream;
+import android.content.Intent;
+import android.net.Uri;
 
 // Make a widget container and the 'take picture' button
 APWidgetContainer widgetContainer; 
@@ -55,18 +57,18 @@ void setup()
 {
   new SikioManager(this).start();
   
-  //create new container for widgets
+  // Create new container for the button
   widgetContainer = new APWidgetContainer(this); 
 
-  //create new button from x- and y-pos. and label. size determined by text content
+  // Create new button at x and y pos with label. Size determined by text content
   photoButton = new APButton(10, 10, "Take Pic"); 
 
-  //place buttons in container
+  // Place buttons in container
   widgetContainer.addWidget(photoButton);
 }
 
-//This overrides our Activity and forces the onResume state. You must do this when
-//using much of the internal hardware on your Android. 
+// This overrides our Activity and forces the onResume state. You must do this when
+// using much of the internal hardware on your Android. 
 void onResume() 
 {
   super.onResume();
@@ -78,28 +80,42 @@ void onResume()
 
 void draw() 
 {
-  //if our physical button gets pressed, save the image
-  if (buttonVal == false) 
+  // If our physical button gets pressed, save the image
+  if (buttonVal == true) 
   {
     savePic();
   }
 }
 
-//save image function - saves the current gBuffer to our local storage and passes the filepath url to our upload function
+// Save image function - saves the current gBuffer to our local storage
 public void savePic() 
 {
-  File root = Environment.getExternalStorageDirectory();
-  File photo = new File(root, "image.jpg");
-  gBuffer.save(root+"/image.jpg"); 
+  // Create a Sikio folder if it's not present
+  File folder = new File("/sdcard/Sikio/");
+  folder.mkdirs();
+  
+  // Delete old image if present
+  File photo = new File("/sdcard/Sikio/image.jpg");
+  photo.delete();
+
+  // Get the SD card's root directory
+  String root = Environment.getExternalStorageDirectory().getPath();
+
+  // Save the image to the Sikio folder
+  gBuffer.save(root + "/Sikio/image.jpg");
+  
+  // Update the Android's file system so that the file will be shown 
+  // when the Android is plugged back into the computer (without restarting the device)
+  sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + root + "/Sikio/")));
 }
 
-//onClickWidget is called when a widget is clicked/touched
+// onClickWidget is called when a widget is clicked/touched
 void onClickWidget(APWidget widget) {
 
-  //same deal, but listens for our APWdiget button instead of the physical button
+  // Checks to see if our 'take picture' button was pressed
   if (widget == photoButton) 
   { 
-    savePic();
+    savePic(); // Save the image
   }
 }
 
