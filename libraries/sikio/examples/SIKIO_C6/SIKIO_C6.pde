@@ -38,6 +38,10 @@ import apwidgets.*; // For creating a button
 import android.os.*; // For checking if our external media is available and writable
 import java.io.*; // For file IO, reading and writing to external media
 
+// For updating media scanner to let computer's file manager be aware of new file
+import android.content.Intent;
+import android.net.Uri;
+
 PFont font; // Declaring font for using text on screen
 
 // These variables hold the state of storage device's availability, write access, and logging status. 
@@ -97,6 +101,10 @@ void onClickWidget(APWidget widget)
     {
       // Update status to indicate we are recording sensor values to a file
       logStatus = "recording";
+      
+      // Create a Sikio folder if it's not present
+      File folder = new File("/sdcard/Sikio/");
+      folder.mkdirs();
        
       // Get the external storage directory. 
       File root = Environment.getExternalStorageDirectory();
@@ -104,7 +112,7 @@ void onClickWidget(APWidget widget)
       // If we can write to our storage, create a text file, and fire up a BufferedWriter to write to it
       if (root.canWrite()) 
       {
-        File sensorValues = new File(root, "sensorValues.txt");
+        File sensorValues = new File(root, "/Sikio/sensorValues.txt");
         FileWriter writer = new FileWriter(sensorValues);
         BufferedWriter out = new BufferedWriter(writer);
         
@@ -121,6 +129,10 @@ void onClickWidget(APWidget widget)
         
        // Close our BufferedWriter.
        out.close();
+       
+       // Update the Android's file system so that the file will be shown 
+       // when the Android is plugged back into the computer (without restarting the device)
+       sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + root + "/Sikio/")));
 
        // We're done! Update status so user is aware that the file logging has finished.
        logStatus = "done";
