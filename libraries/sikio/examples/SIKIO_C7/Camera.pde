@@ -33,13 +33,13 @@ class CameraSurfaceView extends SurfaceView implements SurfaceHolder.Callback, C
     cam.setPreviewCallback(this);
     
    
-   //uncomment this section if your code uploads correctly but all you see is a blank/white screen
+   // Try commenting this section if your code uploads correctly but all you see is a blank/white screen
    try {
       cam.setPreviewDisplay(holder);
     } 
     catch (Exception e) {
     }
-    
+    // end of section to comment
 
     Camera.Parameters parameters = cam.getParameters();
     // Find our preview size, and init our global PImage:
