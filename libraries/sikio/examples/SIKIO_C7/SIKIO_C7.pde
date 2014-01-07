@@ -81,7 +81,7 @@ void onResume()
 void draw() 
 {
   // If our physical button gets pressed, save the image
-  if (buttonVal == true) 
+  if (buttonVal == false) 
   {
     savePic();
   }

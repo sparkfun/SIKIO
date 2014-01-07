@@ -18,7 +18,7 @@
    height of the line depends on how much light is hitting the photocell. There is also a on-screen
    button that can be hit to log the analog data to a txt file onto your Android's removable storage.
    To access the data you logged, plug your Android back into the computer, turn on USB Storage, 
-   and you should see a text file called 'sensorValues.txt' in your main directory.
+   and you should see a text file called 'sensorValues.txt' in the Sikio folder of your main directory.
    
    Make sure you check the WRITE_EXTERNAL_STORAGE permission in addition to the normal 
    INTERNET permssion under 'sketch permissions'. It should be checked by default.
