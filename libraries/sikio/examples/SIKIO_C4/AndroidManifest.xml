@@ -4,7 +4,7 @@
     <uses-feature android:name="android.hardware.usb.accessory" android:required="false" />
     <application android:debuggable="true" android:icon="@drawable/icon" android:label="">
         <uses-library android:name="com.android.future.usb.accessory" android:required="false" />
-        <activity android:name="" android:launchMode="singleTask">
+        <activity android:name="" android:launchMode="singleTask" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
