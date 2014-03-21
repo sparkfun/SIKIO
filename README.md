@@ -1,10 +1,12 @@
-SIKIO
-=====
+SparkFun Inventor's Kit for IOIO (SIKIO)
+========================================
 
-This is the place to go for the SparkFun Inventors Kit based on the IOIO-OTG board. The software directory contains executable packages that are known to work. The examples directory
-contains all of the .apk files and source code for each example in the inventors kit.
+[![SparkFun Inventor's Kit for IOIO](https://cdn.sparkfun.com//assets/parts/7/6/3/4/11607_kit-01.jpg)](https://www.sparkfun.com/products/11607)<br>
+[*SparkFun Inventor's Kit for IOIO (KIT-11607)*](https://www.sparkfun.com/products/11607)
 
-For instructions/information/whatever goto the wiki.
+This is the place to go for the SparkFun Inventors Kit for the IOIO-OTG board. The libraries directory contains all of the source code for each example and libraries necessary for the inventors kit.
+
+For installation instructions and coding reference, be sure to visit the extensive [wiki](https://github.com/sparkfun/SIKIO/wiki).
 
 License
 =====
